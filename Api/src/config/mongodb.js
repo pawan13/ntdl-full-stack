@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const mongoConnect = () => {
-  const dbLink = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/app";
+  const dbLink = process.env.MONGO_URL;
   return mongoose.connect(dbLink);
 };
 

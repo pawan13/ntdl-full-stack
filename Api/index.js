@@ -16,6 +16,8 @@ app.use(
 require("dotenv").config();
 const connectdb = require("./src/config/mongodb");
 
+app.use(express.static(__dirname + "/build"));
+
 //Routers
 const taskRouter = require("./src/router/taskrouter");
 
@@ -30,11 +32,12 @@ app.get("/health", (req, res) => {
 
 app.use("/api/v1/task", taskRouter);
 
+const URL_T = process.env.NODE_ENV;
 connectdb()
   .then(() => {
     console.log("Db connected successfully");
     app.listen(PORT, () => {
-      console.log(`Server is running on http://localhost:${PORT}/health`);
+      console.log(`Server is running on ${URL_T}`);
     });
   })
   .catch((error) => {

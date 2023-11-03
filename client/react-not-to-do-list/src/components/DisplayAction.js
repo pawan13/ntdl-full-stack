@@ -1,10 +1,11 @@
 import axios from "axios";
 import { setTaskList } from "./DisplayTaskSlice";
 
+const API_URL = process.env.NODE_ENV !== "production" ? "/" : "/";
 export const getAllTasksAction = () => async (dispatch) => {
   try {
     console.log("Getting all tasks");
-    const { data } = await axios.get("http://localhost:3000/api/v1/task");
+    const { data } = await axios.get(`${API_URL}/api/v1/task`);
     console.log("Data", data);
     dispatch(setTaskList(data.data));
   } catch (e) {
@@ -15,10 +16,7 @@ export const getAllTasksAction = () => async (dispatch) => {
 export const createTaskAction = (obj) => async (dispatch) => {
   try {
     console.log("Getting all tasks");
-    const { data } = await axios.post(
-      "http://localhost:3000/api/v1/task",
-      obj
-    );
+    const { data } = await axios.post(`${API_URL}/api/v1/task`, obj);
     console.log("Data", data);
     dispatch(getAllTasksAction());
   } catch (e) {
@@ -30,9 +28,7 @@ export const deleteTaskAction = (id) => async (dispatch) => {
   console.log(id);
   try {
     console.log("Getting all tasks");
-    const { data } = await axios.delete(
-      `http://localhost:3000/api/v1/task/${id}`
-    );
+    const { data } = await axios.delete(`${API_URL}/api/v1/task/${id}`);
     console.log("Data", data);
     dispatch(getAllTasksAction());
   } catch (e) {
@@ -43,10 +39,7 @@ export const switchTaskAction = (id, type) => async (dispatch) => {
   console.log(id);
   try {
     console.log("Getting all tasks");
-    const { data } = await axios.patch(
-      `http://localhost:3000/api/v1/task/${id}`,
-      type
-    );
+    const { data } = await axios.patch(`${API_URL}/api/v1/task/${id}`, type);
 
     dispatch(getAllTasksAction());
   } catch (e) {
